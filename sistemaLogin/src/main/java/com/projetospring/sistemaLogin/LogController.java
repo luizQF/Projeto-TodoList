@@ -1,6 +1,7 @@
 package com.projetospring.sistemaLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,12 +29,16 @@ public class LogController {
     }
     @RequestMapping(value = "/register", method = RequestMethod.POST)//responde a metodo post
     
-    public String cadastroUser(@Valid @ModelAttribute Usuario user, BindingResult result){
+    public String cadastroUser(@Valid @ModelAttribute Usuario user, BindingResult result, Model model){
         if(result.hasErrors()){
-            System.err.println(result.getAllErrors());
-            return "redirect:/register";
+            System.err.println(result.getErrorCount());
+            return "register";
         }
-        repositorioUser.save(user);
+        if(repositorioUser.findByEmail(user.getEmail()) != null){//verificando se o email do usuario que fez a requisição ja existe no repositorio
+            model.addAttribute("errorEmail", "E-mail já cadastrado no banco de dados");//modelo para o thymeleaf (errorEmail serve como chave para o atributo)
+            return "register";
+        }
+        repositorioUser.save(user);//salvando o repositorio
         return "redirect:/login";
     }
 }

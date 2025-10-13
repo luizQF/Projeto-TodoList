@@ -1,21 +1,25 @@
 package com.projetospring.sistemaLogin.models;
 
+
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotEmpty;
+
 @Entity
 public class Usuario {
     
     @Id//Define o id como PK
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)//define o auto incremento
+    @Column(name = "id_usuario")
     private long id;
-    @NotEmpty
+    @Column(nullable = false)
     private String nome;
-    @NotEmpty
+    @Column(nullable = false)
     private String senha;
-    @NotEmpty
+    @Column(nullable = false, unique = true)
     private String email;
 
     public long getId() { return id; }
