@@ -19,7 +19,8 @@ public class LogController {
     private UserRep repositorioUser;
     @GetMapping("/login")//responde a esse caminho
     
-    public String login(){
+    public String login(Model model){
+        model.addAttribute("usuario", new Usuario());
         return "login";//retorna a pagina de login
     }
 
@@ -27,6 +28,7 @@ public class LogController {
     public String cadastro(){
         return "register";//retorna a pagina de registro
     }
+
     @RequestMapping(value = "/register", method = RequestMethod.POST)//responde a metodo post
     
     public String cadastroUser(@Valid @ModelAttribute Usuario user, BindingResult result, Model model){
@@ -40,5 +42,27 @@ public class LogController {
         }
         repositorioUser.save(user);//salvando o repositorio
         return "redirect:/login";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+
+    public String loginUsuario(@ModelAttribute Usuario user, BindingResult result, Model model){
+        if(result.hasErrors()){
+            return "login";
+        }
+
+        Usuario usuarioExiste = repositorioUser.findByEmail(user.getEmail());
+
+
+        if(usuarioExiste == null){
+            model.addAttribute("errorLogin", "E-mail não cadastrado");
+            return "login";
+        }
+        if(!usuarioExiste.getSenha().equals(user.getSenha())){
+            model.addAttribute("errorLogin", "Senha incorreta");
+            return "login";
+        } 
+
+        return "index";
     }
 }
