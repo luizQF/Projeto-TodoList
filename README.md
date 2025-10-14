@@ -13,7 +13,6 @@ O objetivo do projeto é permitir que cada usuário tenha sua própria lista de 
 - **MySQL** (banco de dados relacional)
 - **Thymeleaf** (renderização de páginas dinâmicas)
 - **Maven** (gerenciador de dependências)
-- **Hibernate Jpa** (para trabalhar com banco de dados)
 ### 🎨 Front-end
 - **HTML5**
 - **CSS3**
