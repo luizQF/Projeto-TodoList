@@ -17,11 +17,11 @@ import jakarta.validation.Valid;
 @Controller
 public class LogController {
     @Autowired
-    
+
     //responde ao metodo get
     private UserRep repositorioUser;
     @GetMapping("/login")//responde a esse caminho
-    
+
     public String login(Model model){
         model.addAttribute("usuario", new Usuario());
         return "login";//retorna a pagina de login
@@ -32,7 +32,7 @@ public class LogController {
         return "register";//retorna a pagina de registro
     }
 
-    @GetMapping("/index")
+    @GetMapping("/")
     public String sessao() {
         return "index";
     }
@@ -59,7 +59,7 @@ public class LogController {
 
     @PostMapping("/login")
 
-    public String loginUsuario(@ModelAttribute Usuario user, BindingResult result, Model model){
+    public String loginUsuario(@Valid @ModelAttribute Usuario user, BindingResult result, Model model){
         if(result.hasErrors()){
             return "login";
         }
