@@ -1,4 +1,4 @@
-package com.service;
+package com.projetospring.sistemaLogin.service;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -14,8 +14,9 @@ public class CookieService {
         
             Cookie cookie = new Cookie(key, URLEncoder.encode(valor, "UTF-8")); // Criando um cookie passando a chave e o valor em formato UTF-8
             cookie.setMaxAge(segundos); // Tempo que o cookie ficará ativo
-            resp.addCookie(cookie); // adiciona o cookie no corpo da resposta
             cookie.setPath("/"); // garante que o cookie seja enviado para todas as rotas do domínio
+            resp.addCookie(cookie); // adiciona o cookie no corpo da resposta
+           
 
          
         

@@ -1,4 +1,4 @@
-package com.service.autenticator;
+package com.projetospring.sistemaLogin.service.autenticator;
 //Configurações do interceptor
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class LoginInterceptorApp implements WebMvcConfigurer{
     public void addInterceptors(InterceptorRegistry registry){
         registry.addInterceptor(loginInterceptor).excludePathPatterns(
             "/login",
-            "/cadastro"
+            "/register"
         );
     }
 }
